@@ -1,4 +1,4 @@
-package ca1;
+package entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
