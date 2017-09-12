@@ -20,7 +20,16 @@ public class Address implements Serializable {
     private String additionalInfo;
 
     @ManyToOne
-    private String zipCode;
+    private CityInfo cityInfo;
+    
+    private Address() {
+    }
+
+    public Address(String street, String additionalInfo, CityInfo cityInfo) {
+        this.street = street;
+        this.additionalInfo = additionalInfo;
+        this.cityInfo = cityInfo;
+    }
     
     public Long getId() {
         return id;
@@ -46,12 +55,12 @@ public class Address implements Serializable {
         this.additionalInfo = additionalInfo;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public CityInfo getCityInfo() {
+        return cityInfo;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setCityInfo(CityInfo cityInfo) {
+        this.cityInfo = cityInfo;
     }
 
     @Override
