@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ public class CityInfo implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column (name = "ZIP")
     private String zipCode;
 
     private String city;
@@ -19,7 +21,7 @@ public class CityInfo implements Serializable {
     public String getZipCode() {
         return zipCode;
     }
-
+    
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }

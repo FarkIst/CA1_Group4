@@ -26,7 +26,7 @@ public class Hobby implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @ManyToMany(mappedBy="Hobby")
+    @ManyToMany(mappedBy="hobbies")
     private List<Person> persons = new ArrayList();
     
     private String name;
