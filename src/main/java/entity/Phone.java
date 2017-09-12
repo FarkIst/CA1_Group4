@@ -21,22 +21,39 @@ public class Phone implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long number;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String number;
     private String description;
     
     @ManyToOne
     private InfoEntity infoEntity; 
     
     
-    public Long getNumber() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Long number) {
+    public void setNumber(String number) {
         this.number = number;
+    }
+
+    public InfoEntity getInfoEntity() {
+        return infoEntity;
+    }
+
+    public void setInfoEntity(InfoEntity infoEntity) {
+        this.infoEntity = infoEntity;
     }
 
     public String getDescription() {
