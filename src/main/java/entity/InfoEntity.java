@@ -12,40 +12,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author AR
  */
 @Entity
-public class Hobby implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class InfoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String email;
     
-    @ManyToMany(mappedBy="Hobby")
-    private List<Person> persons = new ArrayList();
     
-    private String name;
-    private String description;
+    @OneToMany(mappedBy = "InfoEntity")
+    private List<Phone>phoneNumbers = new ArrayList();
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getId() {
@@ -66,10 +60,10 @@ public class Hobby implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Hobby)) {
+        if (!(object instanceof InfoEntity)) {
             return false;
         }
-        Hobby other = (Hobby) object;
+        InfoEntity other = (InfoEntity) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -78,7 +72,7 @@ public class Hobby implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Hobby[ id=" + id + " ]";
+        return "entity.InfoEntity[ id=" + id + " ]";
     }
     
 }
