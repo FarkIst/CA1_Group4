@@ -12,16 +12,16 @@ public class CityInfo implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private String zip;
+    private String zipCode;
 
     private String city;
 
-    public String getZip() {
-        return zip;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setZip(String zip) {
-        this.zip = zip;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
     
     public String getCity() {
@@ -35,7 +35,7 @@ public class CityInfo implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 71 * hash + Objects.hashCode(this.zip);
+        hash = 71 * hash + Objects.hashCode(this.zipCode);
         hash = 71 * hash + Objects.hashCode(this.city);
         return hash;
     }
@@ -52,7 +52,7 @@ public class CityInfo implements Serializable {
             return false;
         }
         final CityInfo other = (CityInfo) obj;
-        if (!Objects.equals(this.zip, other.zip)) {
+        if (!Objects.equals(this.zipCode, other.zipCode)) {
             return false;
         }
         if (!Objects.equals(this.city, other.city)) {
@@ -63,6 +63,6 @@ public class CityInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "CityInfo{" + "zip=" + zip + ", city=" + city + '}';
+        return "CityInfo{" + "zip=" + zipCode + ", city=" + city + '}';
     }
 }
