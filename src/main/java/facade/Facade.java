@@ -7,8 +7,12 @@ package facade;
 
 import entity.CityInfo;
 import entity.Hobby;
+import entity.InfoEntity;
 import entity.Person;
+import entity.Phone;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,16 +20,21 @@ import java.util.List;
  */
 public class Facade implements IFacade{
 
+    private EntityManager em;
 
     
     @Override
     public Person getPersonById(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return (Person) em.find(InfoEntity.class, id);
     }
 
     @Override
-    public Person getPersonByPhoneNumber(String phoneNumber) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Person> getPersonsByPhoneNumber(String phoneNumber) {
+        Query q = em.createQuery("SELECT p FROM PERSON WHERE phone IN(SELECT p FROM PHONE WHERE number = :number)");
+        q.setParameter("number", phoneNumber);
+        List<Person> persons =  q.getResultList();
+        return persons;
+    
     }
 
     @Override

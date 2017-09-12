@@ -13,7 +13,7 @@ import java.util.List;
 public interface IFacade {
     
     public Person getPersonById(long id);
-    public Person getPersonByPhoneNumber(String phoneNumber);
+    public List<Person> getPersonsByPhoneNumber(String phoneNumber);
     public List<Person> getPersons();
     public List<Person> getPersonsByZipCode(int zipCode);
     public List<Person> getPersonByCity(CityInfo city);
