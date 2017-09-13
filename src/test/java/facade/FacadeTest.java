@@ -2,7 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
+ 
 package facade;
 
 import org.junit.After;
@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  *
  * @author Maksymilian
  */
-public class FacadeTest {
+/*public class FacadeTest {
     
     public FacadeTest() {
     }
@@ -44,3 +44,4 @@ public class FacadeTest {
     }
     
 }
+*/
