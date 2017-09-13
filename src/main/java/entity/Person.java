@@ -31,6 +31,9 @@ public class Person extends InfoEntity {
     
     @ManyToMany
     private List<Hobby> hobbies;
+    
+    private Person() {
+    }
 
     public Person(String email, String firstName, String lastName) {
         super(email);
