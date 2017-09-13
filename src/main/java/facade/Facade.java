@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package facade;
 
 import entity.CityInfo;
@@ -14,62 +9,76 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-/**
- *
- * @author AR
- */
 public class Facade implements IFacade{
 
     private EntityManager em;
 
-    
     @Override
-    public Person getPersonById(long id) {
+    public Person getPerson(long id) {
        return (Person) em.find(InfoEntity.class, id);
     }
 
     @Override
     public List<Person> getPersonsByPhoneNumber(String phoneNumber) {
-        Query q = em.createQuery("SELECT p FROM PERSON WHERE phone IN(SELECT p FROM PHONE WHERE number = :number)");
+        Query q = em.createQuery("SELECT p.infoEntity FROM Phone p WHERE p.number = :number");
         q.setParameter("number", phoneNumber);
         List<Person> persons =  q.getResultList();
         return persons;
-    
     }
 
     @Override
     public List<Person> getPersons() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query q = em.createQuery("SELECT p FROM Person p");
+        List<Person> persons =  q.getResultList();
+        return persons;
     }
 
     @Override
-    public List<Person> getPersonsByZipCode(int zipCode) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Person> getPersonsByZipCode(String zipCode) {
+        Query q = em.createQuery("SELECT p FROM Person p WHERE p.address.cityInfo.zipCode = :zipCode");
+        q.setParameter("zipCode", zipCode);
+        List<Person> persons =  q.getResultList();
+        return persons;
     }
 
     @Override
-    public List<Person> getPersonByCity(CityInfo city) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Person> getPersonsByCity(CityInfo cityInfo) {
+        Query q = em.createQuery("SELECT p FROM Person p WHERE p.address.cityInfo = :cityInfo");
+        q.setParameter("cityInfo", cityInfo);
+        List<Person> persons =  q.getResultList();
+        return persons;
     }
 
     @Override
     public List<Person> getPersonsByHobby(Hobby hobby) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query q = em.createQuery("SELECT p FROM Person p WHERE p.hobbies = :hobby");
+        q.setParameter("hobby", hobby);
+        List<Person> persons =  q.getResultList();
+        return persons;
     }
 
     @Override
     public Person createPerson(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        em.getTransaction().begin();
+        em.persist(person);
+        em.getTransaction().commit();
+        return person;
     }
 
     @Override
-    public Person editPerson(long id, Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Person editPerson(Person person) {
+        em.getTransaction().begin();
+        em.merge(person);
+        em.getTransaction().commit();
+        return person;
     }
 
     @Override
     public Person deletePerson(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        em.getTransaction().begin();
+        em.remove(person);
+        em.getTransaction().commit();
+        return person;
     }
     
 }
