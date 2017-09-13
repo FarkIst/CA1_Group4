@@ -22,12 +22,13 @@ import javax.persistence.OneToMany;
  * @author AR
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class InfoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @ManyToOne

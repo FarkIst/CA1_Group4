@@ -1,14 +1,18 @@
 package rest;
 
-import com.google.gson.Gson;
 import entity.Person;
 import facade.Facade;
 import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import entity.Person;
+import facade.Facade;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
@@ -16,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("person") 
 public class PersonResource {
-    private static Gson gson = new Gson(); 
+    private final static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final static Facade facade = new Facade();
 
     @Context
@@ -35,20 +39,27 @@ public class PersonResource {
     }
     
     @GET
-    @Path("/api/person/complete/{all}")
+    @Path("/api/person/complete/all")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersons() { 
         List<Person> persons = facade.getPersons();
         String text1 = gson.toJson(persons);
         return text1; 
     }
-    
-    /**
-     * PUT method for updating or creating an instance of GenericResource
-     * @param content representation for the resource
-     */
-    @PUT
+
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    public String postPerson(String content) {
+        Person person = gson.fromJson(content, Person.class);
+        if (person == null) {
+            return gson.toJson(false);
+        }
+        facade.createPerson(person);
+        return gson.toJson(true);
+        /*Person p1 = new Person("bob@gmail.com", "Bob", "Jensen");
+        p1 = gson.fromJson(content, Person.class);
+        return gson.toJson(p1);
+/*        return content;
+        return "true\n";*/
     }
 }
