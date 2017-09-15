@@ -7,6 +7,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entity.Person;
 import facade.Facade;
+import java.util.List;
+import entity.Person;
+import facade.Facade;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -30,7 +33,7 @@ public class PersonResource {
     }
     
     @GET
-    @Path("/api/person/complete/{id}")
+    @Path("complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPerson(@PathParam("id") long id) { 
         Person person = facade.getPerson(id);
@@ -39,7 +42,7 @@ public class PersonResource {
     }
     
     @GET
-    @Path("/api/person/complete/all")
+    @Path("complete/all")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersons() { 
         List<Person> persons = facade.getPersons();
@@ -56,10 +59,5 @@ public class PersonResource {
         }
         facade.createPerson(person);
         return gson.toJson(true);
-        /*Person p1 = new Person("bob@gmail.com", "Bob", "Jensen");
-        p1 = gson.fromJson(content, Person.class);
-        return gson.toJson(p1);
-/*        return content;
-        return "true\n";*/
     }
 }

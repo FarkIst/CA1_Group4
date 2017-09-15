@@ -1,10 +1,59 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<head>
+    <title>Start Page</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table id="main"></table>
+<script>
+    var table = document.getElementById('main');
+    
+    fetch('api/person/all').then(function (res) {
+        return res.json();
+    }).then(function (json) {
+        var header = document.createElement('tr');
+        
+        var idHeader = document.createElement('th');
+        idHeader.appendChild(document.createTextNode('ID'))
+        header.appendChild(idHeader);
+        
+        var fNameHeader = document.createElement('th');
+        fNameHeader.appendChild(document.createTextNode('First Name'))
+        header.appendChild(fNameHeader);
+        
+        var lNameHeader = document.createElement('th');
+        lNameHeader.appendChild(document.createTextNode('Last Name'))
+        header.appendChild(lNameHeader);
+        
+        var phoneHeader = document.createElement('th');
+        phoneHeader.appendChild(document.createTextNode('Phone'))
+        header.appendChild(phoneHeader);
+        
+        table.appendChild(header);
+        
+        json.forEach(function (p) {
+            var row = document.createElement('tr');
+            
+            var id = row.appendChild(document.createElement('td'));
+            id.appendChild(document.createTextNode(p.id));
+            row.appendChild(id);
+            
+            var fName = row.appendChild(document.createElement('td'));
+            fName.appendChild(document.createTextNode(p.fName));
+            row.appendChild(fName);
+            
+            var lName = row.appendChild(document.createElement('td'));
+            lName.appendChild(document.createTextNode(p.lName));
+            row.appendChild(lName);
+            
+            var phone = row.appendChild(document.createElement('td'));
+            phone.appendChild(document.createTextNode(p.phone));
+            row.appendChild(phone);
+            
+            table.appendChild(row);
+        });
+    });
+</script>
+</body>
 </html>
