@@ -14,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -58,6 +59,29 @@ public class PersonResource {
             return gson.toJson(false);
         }
         facade.createPerson(person);
+        return gson.toJson(true);
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String putPerson(String content) {
+        Person person = gson.fromJson(content, Person.class);
+        if (person == null) {
+            return gson.toJson(false);
+        }
+        facade.editPerson(person);
+        return gson.toJson(true);
+    }
+
+    @DELETE
+    @Path("complete/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String deletePerson(@PathParam("id") long id) {
+        Person person = facade.getPerson(id);
+        if (person == null) {
+            return gson.toJson(false);
+        }
+        facade.deletePerson(person);
         return gson.toJson(true);
     }
 }

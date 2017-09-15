@@ -92,44 +92,83 @@
         <table class="table">
             <thead>
         <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Email</th>
+            <th></th>
         </tr>
             </thead>
         <tbody id="person-table-body">
         </tbody>
+        <tfoot>
+            <tr>
+                <td><input type="text" id="firstName" placeholder="First Name"></td>
+                <td><input type="text" id="lastName" placeholder="Last Name"></td>
+                <td><input type="text" id="email" placeholder="Email"></td>
+                <td><button onclick="getPersons()" type="button" class="btn btn-info" id="create">Create</button></td>
+            </tr>
+        </tfoot>
         </table>
 <script>
     var table = document.getElementById('person-table-body');
-    
-    fetch('api/person/complete/all').then(function (res) {
-        return res.json();
-    }).then(function (json) {
-        var header = document.createElement('tr');
-        table.appendChild(header);
-        json.forEach(function (p) {
-            var row = document.createElement('tr');
-            
-            var fName = row.appendChild(document.createElement('td'));
-            fName.appendChild(document.createTextNode(p.firstName));
-            row.appendChild(fName);
-            
-            var lName = row.appendChild(document.createElement('td'));
-            lName.appendChild(document.createTextNode(p.lastName));
-            row.appendChild(lName);
-            
-            var lName = row.appendChild(document.createElement('td'));
-            lName.appendChild(document.createTextNode(p.email));
-            row.appendChild(lName);
-            
-            table.appendChild(row);
+    var create = document.getElementById('create');
+    var firstNameInput = document.getElementById('firstName');
+    var lastNameInput = document.getElementById('lastName');
+    var emailInput = document.getElementById('email');
+    create.onclick = function () {
+        fetch('api/person', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                firstName: firstNameInput.value,
+                lastName: lastNameInput.value,
+                email: emailInput.value
+            })
+        }).then(function () {
+            firstNameInput.value = '';
+            lastNameInput.value = '';
+            emailInput.value = '';
+            reload();
         });
-    });
+    };
+    function reload() {
+        fetch('api/person/complete/all').then(function (res) {
+            return res.json();
+        }).then(function (json) {
+            while (table.firstChild) {
+                table.removeChild(table.firstChild);
+            }
+            json.forEach(function (p) {
+                var row = table.appendChild(document.createElement('tr'));
+
+                var firstNameTd = row.appendChild(document.createElement('td'));
+                firstNameTd.appendChild(document.createTextNode(p.firstName));
+
+                var lastNameTd = row.appendChild(document.createElement('td'));
+                lastNameTd.appendChild(document.createTextNode(p.lastName));
+
+                var emailTd = row.appendChild(document.createElement('td'));
+                emailTd.appendChild(document.createTextNode(p.email));
+
+                var deleteTd = row.appendChild(document.createElement('td'));
+                var deleteInput = deleteTd.appendChild(document.createElement('input'));
+                deleteInput.type = 'button';
+                deleteInput.className = 'btn btn-danger';
+                deleteInput.value = 'Delete';
+                deleteInput.onclick = function () {
+                    fetch('api/person/complete/' + p.id, {
+                        method: 'DELETE'
+                    }).then(function () {
+                        reload();
+                    });
+                };
+            });
+        });
+    }
+    reload();
 </script>
-            <button onclick="getPersons()" type="button" class="btn btn-info">Button1</button>
-            <button onclick="changeColor()" type="button" class="btn btn-info">Button2</button>
-            <button onclick="changeColor()" type="button" class="btn btn-info">Button3</button>
           </div>
         </div>
       </div>
