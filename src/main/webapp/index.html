@@ -97,25 +97,36 @@
             <th>Email</th>
         </tr>
             </thead>
-        <tbody>
-            <tr>
-            <td>Name</td>
-            <td>LName</td>
-            <td>mail</td>
-            </tr>
-            <tr>
-            <td>Name</td>
-            <td>LName</td>
-            <td>mail</td>
-            </tr>
-            <tr>
-            <td>Name</td>
-            <td>LName</td>
-            <td>mail</td>
-            </tr>
+        <tbody id="person-table-body">
         </tbody>
         </table>
-        
+<script>
+    var table = document.getElementById('person-table-body');
+    
+    fetch('api/person/complete/all').then(function (res) {
+        return res.json();
+    }).then(function (json) {
+        var header = document.createElement('tr');
+        table.appendChild(header);
+        json.forEach(function (p) {
+            var row = document.createElement('tr');
+            
+            var fName = row.appendChild(document.createElement('td'));
+            fName.appendChild(document.createTextNode(p.firstName));
+            row.appendChild(fName);
+            
+            var lName = row.appendChild(document.createElement('td'));
+            lName.appendChild(document.createTextNode(p.lastName));
+            row.appendChild(lName);
+            
+            var lName = row.appendChild(document.createElement('td'));
+            lName.appendChild(document.createTextNode(p.email));
+            row.appendChild(lName);
+            
+            table.appendChild(row);
+        });
+    });
+</script>
             <button onclick="getPersons()" type="button" class="btn btn-info">Button1</button>
             <button onclick="changeColor()" type="button" class="btn btn-info">Button2</button>
             <button onclick="changeColor()" type="button" class="btn btn-info">Button3</button>
