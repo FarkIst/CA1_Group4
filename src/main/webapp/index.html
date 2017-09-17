@@ -179,8 +179,17 @@
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <h2>Rest</h2>
-            <p>FILL this AREK
-              
+            <p>
+                Description and Logic behind our REST API, Error Responses and JSON Format: 
+                Essentially a RESTful API is constructed simply by a collection of URIs in which 
+                those URIs are called via. HTTP and some JSON and/or XML representations of resources,
+                many of which will contain rational links. 
+                That is descriptively how we have structured our REST API, our URIs are referred to a 
+                resource or an action like for example. our list of Persons or a singular Person declared 
+                by an id, and the way we fetch that data. So that means that every resource is identified by 
+                an URI in our project, and by initializing those URIs we follow a simple structure that 
+                results in the URIs becoming predictable in which data they contain and improves usability, 
+                essentially meaning that in the end the API is overall improved. 
             </p>
           </div>
         </div>
@@ -192,8 +201,9 @@
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <h2>Test</h2>
-            <p>FILL this AREK
-              
+            <p>
+                Description of "How To Test The System”.
+                As for testing we have only implemented a Facade test 
             </p>
           </div>
         </div>
@@ -205,8 +215,31 @@
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <h2>Tasks</h2>
-            <p>FILL this AREK
-              
+            <p>
+                Split Workload - Who Did What(Sprint Backlog): 
+                11/09-2017 - Monday: 
+                Group_4: Created a GIT-Repo, branches & pushed a git.ignore
+
+                12/09-2017 - Tuesday:
+                Jakob: Created and completed remaining entities & entity helper classes & added script to generate data.
+                Farkas: Created the rest of the needed entities. 
+                Arkadiusz: Started working on the Facades & Interface/Facade Test.
+
+                13/09-2017 - Wednesday: 
+                Jakob: Worked from Home: Helped with implementing additions to the REST API (POST & PUT) 
+                Farkas: Worked from Home - Sick/Bed Bound.
+                Arkadiusz: Worked from Home: Continuing doing the Facades/Interface - REST Api (GET & PUT)
+
+                14/09-2017 - Thursday:
+                Jakob: Debugging, Fixing POM.xml and dependencies.
+                Farkas: Prototype of page design & completed implementing tables for creating people. 
+                Arkadiusz: Helped Debugging
+
+                15/09-2017 - Friday: 
+                Jakob: Completed REST API with implementation of DELETE & PUT), Error Debugging/Feedback
+                Farkas: Front-end/HTML/Feedback
+                Arkadiusz: Documentation/Feedback
+                A description of the strategy chosen to implement inheritance and why this strategy was chosen.
             </p>
           </div>
         </div>
@@ -218,8 +251,17 @@
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <h2>Strategy</h2>
-            <p>FILL this AREK
-              
+            <p>
+                How we use our REST API: 
+                We call GET api/persons/all, GET api/person/id - Which we use to read and retrieve data from our 
+                database, whether we want to retrieve all persons stored or a single person identified by an ID, 
+                and as a GET-call should work, it will never change the response no matter how any times you call 
+                it, that would only lead to getting the same result. 
+                POST api/person is a call we use to create new resources, so essentially it POSTS to the parent 
+                resource and the service takes care of associating with the parent and assigning a new ID 
+                (new resource URI). Also worth noting is that POST is not safe or idempotent, meaning that two 
+                identical POST requests will return two resources containing the same information. 
+                (More CRUD operations)
             </p>
           </div>
         </div>
@@ -231,8 +273,8 @@
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <h2>About</h2>
-            <p>FILL this AREK
-              
+            <p>
+                Testing the webpage is done via browser, adding persons, and removing them.
             </p>
           </div>
         </div>
