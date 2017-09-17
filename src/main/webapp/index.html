@@ -253,7 +253,7 @@
             <h2>Strategy</h2>
             <p>
                 How we use our REST API: 
-                We call GET api/persons/all, GET api/person/id - Which we use to read and retrieve data from our 
+                We call GET api/person/complete/all, GET api/person/complete/{id} - Which we use to read and retrieve data from our 
                 database, whether we want to retrieve all persons stored or a single person identified by an ID, 
                 and as a GET-call should work, it will never change the response no matter how any times you call 
                 it, that would only lead to getting the same result. 
@@ -261,7 +261,7 @@
                 resource and the service takes care of associating with the parent and assigning a new ID 
                 (new resource URI). Also worth noting is that POST is not safe or idempotent, meaning that two 
                 identical POST requests will return two resources containing the same information. 
-                (More CRUD operations)
+                DELETE api/person/complete/{id} is a call which will delete a person given its ID.
             </p>
           </div>
         </div>
